@@ -98,3 +98,19 @@ Send a notification to a topic.
   "data": { ... }
 }
 ```
+Send a notification to a device.
+#### Request Body:
+```json
+{
+  "token": "DEVICE_TOKEN",
+  "message": "Hello subscribers!"
+}
+```
+### Response
+```json
+{
+  "success": true,
+  "message": "Notification sent successfully",
+  "data": { ... }
+}
+```

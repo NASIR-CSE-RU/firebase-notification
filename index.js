@@ -5,7 +5,7 @@ const app = express();
 const PORT = 3000;
 
 // 🔑 Initialize Firebase Admin SDK
-const serviceAccount = require("./secret/bablive-b1268-1c1192edff6d.json");
+const serviceAccount = require("./secret/bablive-b1268-17f244a66395.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -17,7 +17,7 @@ app.use(express.json());
 app.get("/", async (req, res) => {
     return res.status(200).json({
         status: true,
-        message: "Firebase running..."
+        message: "Firebase running...uzzal"
     });
 });
 
@@ -52,19 +52,32 @@ app.post("/api/subscribe", async (req, res) => {
 
 // POST route to send notification to a topic
 app.post("/api/send-notification", async (req, res) => {
-    const { topic, message } = req.body;
+    const { topic, token, message,title } = req.body;
 
-    if (!topic || !message) {
-        return res.status(400).json({ status: false, message: 'Missing topic or message' });
+    if ((!topic && !token) || !message) {
+        return res.status(400).json({ status: false, message: 'Missing topic,token or message' });
+    }
+    let messageq ={};
+
+    if(topic){
+         messageq = {
+            notification: {
+                title: title ?? 'Notification',
+                body: message,
+            },
+            topic: topic,
+        };
+    }else{
+         messageq = {
+            notification: {
+                title: title ?? 'Notification',
+                body: message,
+            },
+            token: token,
+        };
     }
 
-    const messageq = {
-        notification: {
-            title: 'Test Notification to Topic',
-            body: message,
-        },
-        topic: topic,
-    };
+    
 
     try {
         const response = await admin.messaging().send(messageq);
