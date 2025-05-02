@@ -98,6 +98,7 @@ Send a notification to a topic.
 ```json
 {
   "topic": "news",
+  "title": "Title of message",
   "message": "Hello subscribers!"
 }
 ```
@@ -106,7 +107,7 @@ Send a notification to a topic.
 {
   "success": true,
   "message": "Notification sent successfully",
-  "data": { ... }
+  "response": { ... }
 }
 ```
 Send a notification to a device.
@@ -114,6 +115,7 @@ Send a notification to a device.
 ```json
 {
   "token": "DEVICE_TOKEN",
+  "title": "Title of message",
   "message": "Hello subscribers!"
 }
 ```
@@ -122,6 +124,6 @@ Send a notification to a device.
 {
   "success": true,
   "message": "Notification sent successfully",
-  "data": { ... }
+  "response": { ... }
 }
 ```
