@@ -13,15 +13,21 @@ A simple Express.js server that integrates with Firebase Cloud Messaging (FCM) t
 
 
 ## 📁 Project Structure
-
 ```
-.
-├── index.js              # Main Express server
-├── firebase.js           # Firebase Admin SDK setup
+firebase-push-server/
+├── controllers/
+│   └── notification.controller.js
+├── middleware/
+│   └── auth.js             # 🔐 Your Firebase service access control
+├── routes/
+│   └── notification.routes.js
+├── config/
+│   └── firebase.js
 ├── secret/
-│   └── auth.json         # Firebase Service Account credentials (DO NOT COMMIT)
+│   └── auth.json           # 🔐 Your Firebase service account key (DO NOT COMMIT)
+├── .env                    # 🌱 Optional for environment variables
+├── index.js                # 🚀 App entry point
 ├── package.json
-├── .env                  # (Optional) for config values
 └── README.md
 ```
 
@@ -57,12 +63,17 @@ npm install
 
 5. Place it in your project secret directory
 
+6. rename .env.example to .env and add APP_TOKEN (a SHA1 token) that will used as barier token of api
+
 🔒 Never commit auth.json to your Git repository.
 
 ### 4. Run the server
 ```bash
 node index.js
 ```
+### 🔐 API Authentication
+All POST routes require an Authorization: Bearer YOUR_APP_TOKEN (which you set on .env) header.
+
 ### 📮 API Endpoints
 #### POST /api/subscribe
 Subscribe a device token to a topic.
